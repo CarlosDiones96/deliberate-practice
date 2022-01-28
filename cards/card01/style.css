@@ -37,15 +37,30 @@ html, body{
     background:transparent; /*test*/
 }
 
+/*================ COLORS =======================*/
+.red{
+    background: rgb(243, 49, 49);
+    opacity: 0.6;
+}
+
+.purple{
+    background: rgb(122, 54, 230);
+    opacity: 0.6;
+}
+
+.gray{
+    background: rgb(143, 138, 138);
+    opacity: 0.6;
+}
+
 .disc{
     height: 30px;
-    width:32px;
-    background: rgb(243, 49, 49);
+    width:30px;
     text-align: center;
     border-radius: 50px;
     border: 1.4px solid white;
     align-self: flex-start;
-    line-height: 32px;
+    line-height: 30px;
     font-size:14px;
 
 }
@@ -97,27 +112,39 @@ html, body{
     margin-left: 10px;
 }
 
-.card-top, .card-middle, .card-bottom{
+.card-top, .card-bottom{
     display: flex;
     justify-content: space-between;
     align-items:center;
     padding: 0 10px;
 }
 
-.card-top{
-    background: rgb(243, 49, 49);
-}
 
 .card-middle, .card-bottom{
     background: white;
 }
 
 .card-middle{
-    border-bottom: 0.4px solid lightgray;
-    padding: 0;
-    margin: 0;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-items: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+}
 
-    width: 93%;
-    align-self: center;
-    align-content:flex-start;
+.card-middle p{
+    width: 310px;
+    justify-self: flex-start;
+    border-bottom: 1px solid rgb(218, 206, 206);
+    margin-top: 0;
+    margin-bottom: 5px;
+    line-height: 3;
+    box-sizing: border-box;
+}
+
+.xt-space{
+    background:white;
+    display: flex;
+    width: 10px;
+    height:inhrit;
 }
