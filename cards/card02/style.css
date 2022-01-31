@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@200;400;600&display=swap');
 
 /*
 
@@ -11,17 +11,19 @@ body{
     padding:0;
     box-sizing: border-box;
     font-family:'Karla', sans-serif;
+    display: flex;
+    justify-content:center;
 }
 
 
 h3{
     font-size:1.1rem;
-    font-weight:400;
+    font-weight:200;
 }
 
 p{
-    font-size:1.5rem;
-    font-weight:600;
+    font-size:1.3rem;
+    font-weight:500;
 }
 
 h3, p{
@@ -29,9 +31,9 @@ h3, p{
     line-height:0.1;
 }
 .main-container{
-    height: 600px;
-    width:1000px;
-    background:lightyellow;
+    height: 660px;
+    width:500px;
+    background:white;
 
     display: flex;
     align-items: center;
@@ -43,12 +45,15 @@ h3, p{
 
 .small-container{
     height:100%;
-    width:46%;
+    width:100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
 }
 
 .card{
     width:100%;
-    height: 120px;
+    height: 100px;
     background: rgb(4,69,111);
     background: linear-gradient(90deg, rgba(4,69,111,1) 0%, rgba(3,38,94,1) 90%);
 
@@ -62,12 +67,12 @@ h3, p{
 
 .content{
     box-sizing: border-box;
-    padding:40px 0 0;
+    padding:30px 0 0;
 
 }
 
 .card div img{
-    height: 130px;
+    height: 100px;
     position: relative;
     top: 15px;
 }
