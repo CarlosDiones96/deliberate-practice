@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap');
+/*
+font-family: 'Roboto Slab', serif;
+*/
+
+
+body{
+    margin: 0;
+    padding:0;
+    display:flex;
+    justify-content:center;
+    font-family: 'Roboto Slab', serif;
+}
+
+form{
+    box-sizing: border-box;
+    height:400px;
+    width:300px;
+    background:rgba(105, 90, 82, 0.5);
+    margin:50px auto;
+    border-radius: 5px;
+    box-shadow: -1px -1px 5px rgba(0, 0, 0, 0.5);
+}
+
+input{
+    background:rgba(170, 127, 98, 0.26);
+    border-radius:5px;
+    border:none;
+    margin:10px 10px;
+}
+
+.container{
+    box-sizing: border-box;
+    height:600px;
+    width:800px;
+    background-image: url("img/background.png");
+    background-repeat: no-repeat;
+    background-size:contain; 
+}
+
+.profile{
+    height:60px;
+    width:60px;
+    border-radius: 40px;
+    position:relative;
+    top:-30px;
+    left:115px;
+    z-index:10;
+}
+
+.shadow{
+    background:rgba(245, 245, 245, 0.3);
+    padding:33px;
+    border-radius:40px;
+    position: relative;
+    z-index:9;
+    top:-27px;
+    left:48px;
+}
+
+.presentation{
+    font-size: 1.5rem;
+    color:white;
+    display:inline-block;
+    text-align:center;
+    margin:0 40px 10px;
+    width:200px;
+    font-weight:700;
+}
+
+.main{
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.links-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+a{
+    font-size: 0.8rem;
+    text-decoration: none;
+}
+
+label, input, a{
+    padding: 10px 0;
+    color: white;
+}
+
+button{
+    border-radius:5px;
+    font-size:1rem;
+    padding:8px;
+    border:none;
+    background:rgba(233, 225, 220, 0.836);
+    color:dimgray;
+}
+
+button, a, input:last-of-type{
+    margin:0 10px;
+}
