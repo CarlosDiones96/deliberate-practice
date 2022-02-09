@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600;900&display=swap');
+
+/*
+
+font-family: 'Nunito Sans', sans-serif; (600 / 900)
+
+*/
+
+html, body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+body{
+    background: rgba(0, 0, 0, 0.1);
+}
+
+*, *::before, *::after{
+    box-sizing: border-box;
+}
+
+form{
+    height: 500px;
+    width: 800px;
+    margin: 8rem auto 0;
+    display: flex;
+    flex-flow: row nowrap;
+
+    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.2);
+    border-radius:0.2rem;
+}
+
+legend{
+    font-size: 2.2rem;
+    font-weight:900;
+    color:rgba(0, 0, 0, 0.4);
+}
+
+
+span{
+    text-transform:uppercase;
+    color: black;
+}
+
+p{
+    font-size:1.2rem;
+    color:rgba(0, 0, 0, 0.7);
+    margin-bottom: 4rem;
+}
+
+.form-background{
+    background-image: url("img/little-cat.jpg");
+    height:100%;
+    width: 300px;
+    border-bottom-left-radius:0.2rem;
+    border-top-left-radius:0.2rem;
+}
+
+.form-controls{
+    height: 100%;
+    width:500px;
+    background: white;
+    display: flex;
+    flex-flow: column nowrap;
+    padding:1.2rem;
+}
+
+fieldset{
+    margin-top: 3rem;
+    border: none;
+}
+
+fieldset > div{
+    display: flex;
+    flex-flow: row nowrap;
+    margin-top:2rem;
+    align-items:flex-start;
+}
+
+input[type=email], input[type=password], input[type=submit]{
+    font-size: 2rem;
+}
+
+input[type=email], input[type=password]{
+    width:99%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding-bottom: 1.3rem;
+    margin-left:1rem;
+}
+
+input[type=submit]{
+    float: right;
+    margin-top: 1.4rem;
+    padding:0.8rem 2rem;
+    border-radius:3rem;
+    border:2px solid transparent;
+    background-color: rgba(104, 12, 146, 0.3);
+    color: rgba(255, 255, 255, 1);
+}
+
+input[type=submit]:hover{
+    border:2px solid rgb(85, 8, 185);
+    cursor: pointer;
+}
+
+.styled-svg{
+    opacity: 0.1;
+}
