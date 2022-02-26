@@ -31,4 +31,21 @@ Object.defineProperty(Object.prototype,
         }
     });
 
-    //====================================================
+//====================================================
+
+//Creating a new object that inherits from a prototype
+function inherit(p){
+    if(p == null){
+        throw TypeError();
+    }
+    if(Object.create){
+        return Object.create(p);
+    }
+    var t = typeof p;
+    if(t !== "object" && t !== "function"){
+        throw TypeError();
+    }
+    function f() {};
+    f.prototype = p;
+    return new f();
+}
