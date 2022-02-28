@@ -49,3 +49,37 @@ function inherit(p){
     f.prototype = p;
     return new f();
 }
+
+//====================================================
+
+//This function uses arguments.callee, so it won't work
+//in strict mode
+function check(args){
+    var actual = args.length;
+    var expected = args.calee.length;
+    if(actual !== expected){
+        throw Error("Expected: "+ expected + "args; got " + actual);
+    }
+}
+
+function f(x, y, z){
+    check(arguments);
+    return x + y + z;
+}
+
+//====================================================
+
+//Replace the method named m of the object o with a version that logs
+//messages before and after invoking the original method
+function trace(o, m){
+    var original = o[m];
+    o[m] = function() {
+        console.log(new Date(), "Entending:", m);
+        var result = original.apply(this, arguments);
+        console.log(new Date(), "Exiting:", m);
+        return result;
+    };
+}
+
+
+//====================================================
