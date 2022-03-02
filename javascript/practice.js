@@ -166,3 +166,71 @@ function loadasync(url){
 }
 
 //====================================================
+
+window.onload = function() {};
+document.getElementById("button1").onclick = function(){};
+function handleResponse(){}
+request.onreadystatechange = handleResponse;
+
+window.addEventListener("load", function() {}, false);
+request.addEventListener("readystatechange", function(){}, false);
+
+window.attachEvent("onload", function(){});
+
+//onLoad: invoke a function when the document loads
+function onLoad(f){
+    if(onLoad.loaded){
+        window.setTimeout(f, 0);
+    }else if(window.addEventListener){
+        window.addEventListener("load", f, false);
+    }else if(window.attachEvent){
+        window.attachEvent("onload", f);
+    }
+}
+
+onLoad.loaded = false;
+onLoad(function(){onLoad.loaded = true;});
+
+//====================================================
+if(element.addEventListener){
+    element.addEventListener("keydown", handler, false);
+    element.addEventListener("keypress", handler, false);
+}else if(element.attachEvent){
+    element.attachEvent("onkeydown", handler);
+    element.attachEvent("onkeypress", handler);
+}else{
+    element.onkeydown = element.onkeypress = handler;
+}
+
+
+setInterval(updateClock, 60000);
+
+//A timer utility function
+function invoke(f, start, interval, end){
+    if(!start) start = 0;
+    if(arguments.length <= 2){
+        setTimeout(f, start);
+    }else{
+        setTimeout(repeat, start);
+        function repeat(){
+            var h = setInterval(f, interval);
+            if(end) setTimeout(function() { clearInterval(h);}, end);
+        }
+    }
+}
+
+//Extracting arguments from the search string of a URL
+function urlArgs(){
+    var args = {};
+    var query = location.search.substring(1);
+    var pairs = query.split("&");
+    for(var i = 0; i < pairs.length; i++){
+        var pos = pairs[i].indexOf('=');
+        if(pos == -1) continue;
+        var name = pairs[i].substring(0, pos);
+        var value = pairs[i].substring(pos+1);
+        value = decodeURIComponent(value);
+        args[name] = value;
+    }
+    return args;
+}
