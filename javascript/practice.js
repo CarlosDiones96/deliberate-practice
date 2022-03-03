@@ -234,3 +234,100 @@ function urlArgs(){
     }
     return args;
 }
+
+//====================================================
+if (!XMLHttpRequest) location.replace("staticpage.html");
+
+location = "#top";
+
+location.search = "?page=" + (pagenum+1);
+
+history.go(-2);
+
+
+//Browser sniffing using navigator.userAgent
+var browser = (function(){
+    var s = navigator.userAgent.toLowerCase();
+    var match = /(webkit)[\/]([\w.]+)/.exec(s) ||
+    /(opera)(?:.*version)?[\/]([\w.]+)/.exec(s) ||
+    /(msie)([\w.]+)/.exec(s) ||
+    !/compatible/.test(s) && /(mozilla)(?:.*? rv:([\w.]+))?/.exec(s) ||
+    [];
+    return {name: match[1] || "", version: match[2] || "o"};
+}());
+
+
+
+do{
+    var name = prompt("What is your name?");
+    var correct = confirm("You entered '"+ name + "'.\n");
+}while(!correct)
+alert("Hello, " + name); //deprecated
+
+
+//using ShowModalDialog()
+var args = dialogArguments;
+var text = "<legend>" + args[0] + "</legend>";
+for(var i = 0; i < args.length; i++){
+    text += "<label>" + args[i] + ": <input id='f" + i + "'></label><br>";
+}
+document.getElementById("fields").innerHTML = text;
+
+function cancel() { window.close();}
+
+function okay(){
+    window.returnValue = [];
+    for(var i = 1; args.length; i++){
+        window.returnValue[i-1] = document.getElementById("f" + i).value;
+    }
+    window.close();
+}
+
+//Display error messages in a dialog box, but never more than 3
+window.onerror = function(msg, url, line){
+    if(onerror.num++ < onerror.max){
+        alert("Error: " + msg + "\n" + url + ":" + line);
+        return true;
+    }
+}
+onerror.max = 3;
+onerror.num = 0;
+
+//
+var ui = ["input", "prompt", "heading"];
+ui.forEach(function(id){
+    ui[id] = document.getElementById(id);
+});
+
+//
+var $ = function(id) {return document.getElementById(id);}
+ui.prompt = $("prompt");
+
+//
+var w = window.open("smallwin.html", "smallwin", "width=400,height=350,status=yes,resizable=yes");
+
+var w = window.open();
+w.alert("Example text");
+w.location = "https://example.com";
+
+w.opener !== null;
+w.open().opener === w;
+
+w.close();
+
+window.close();
+
+//
+parent.history.back();
+
+parent == self;
+
+var iframeElement = document.getElementById("f1");
+var childFrame = document.getElementById("f1").contentWindow;
+
+var elt = document.getElementById("f1");
+var win = elt.contentWindow;
+win.frameElement === elt; //always true for frames
+window.frameElement === null; //for toplevel windows
+
+//====================================================
