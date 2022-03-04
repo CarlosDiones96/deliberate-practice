@@ -331,3 +331,128 @@ win.frameElement === elt; //always true for frames
 window.frameElement === null; //for toplevel windows
 
 //====================================================
+
+//Looking up multiple elements by ID
+function getElements(/*ids...*/){
+    var elements = {};
+    for(var i = 0; i < arguments.length; i++){
+        var id = arguments[i];
+        var elt = document.getElementById(id);
+        if(elt == null){
+            throw new Error("No elemeny with id: " + id);
+        }
+        elements[id] = elt;
+    }
+    return elements;
+}
+
+var form = document.shipping_adress; //<form name="shipping_adress">
+
+var spans = document.getElementsByTagName("span");
+
+var firstpara = document.getElementsByTagName("p")[0]; //first element
+var firstParaSpans = firstpara.getElementsByTagName("span");
+
+document.forms.shipping_adress;
+
+for(var i = 0; i < document.images.length; i++){
+    document.images[i].style.display = "none";
+}
+
+var content = Array.prototype.map.call(document.getElementsByTagName("p"),
+                            function(e) {return e.innerHTML;});
+
+
+var snapshot = Array.prototype.slice.call(nodelist, 0);
+
+//Find all elements that have "warning" in their class attribute
+var warnings = document.getElementsByClassName("warning");
+var log = document.getElementById("log");
+var fatal = log.getElementsByClassName("fatal error");
+
+
+document.childNodes[0].childNodes[1];
+document.firstChild.firstChild.nextSibling;
+
+
+
+//Portable document traversal functions
+function parent(e, n){
+    if(n === undefined) n=1;
+    while(n-- && e) e = e.parentNode;
+    if(!e || e.nodeType !== 1) return null;
+    return e;
+}
+
+function sibling(e, n){
+    while(e && n!== 0){
+        if(n > 0){
+            if(e.nextElementSibling) e = e.nextElementSibling;
+            else{
+                for(e=e.nextSibling; e && e.nodeType !== 1; e=e.nextSibling){
+                    //empty loop
+                }
+            }
+            n--;
+        }else{
+            if(e.previousElementSibling) e = e.previousElementSibling;
+            else{
+                for(e=e.previousSibling; e&&e.nodeType !==1; e=e.previousSibling){
+                    //empty loop
+                }
+                n++;
+            }
+        
+        }
+    }
+    return e;
+}
+
+function child(e, n){
+    if(e.children){
+        if(n < 0) n += e.children.length;
+        if(n < 0) return null;
+        return e.children[n];
+    }
+
+    if(n >= 0){
+        if(e.firstElementChild) e = e.firstElementChild;
+        else{
+            for(e = e.firstChild; e && e.nodeType !== 1; e=e.nextSibling){
+                //empty
+            }
+            
+        }
+        return sibling(e, n);
+    }
+    else{
+        if(e.lastElementChild) e = e.lastElementChild;
+        else{
+            for(e=e.lastChild; e && e.nodeType !== 1; e=e.previousSibling){
+                //empty
+            }
+        }
+        return sibling(e, n+1);
+    }
+}
+
+
+//
+Element.prototype.next = function(){
+    if(this.nextElementSibling) return this.nextElementSibling;
+    var sib = this.nextSibling;
+    while(sib && sib.nodeType !== 1) sib = sib.nextSibling;
+};
+
+//
+if(!document.documentElement.children){
+    Element.prototype.__defineGetter__("children", function(){
+        var kids = [];
+        for(var c = this.firstChild; c !== null; c.nextSibling){
+            if(c.nodeType === 1) kids.push(c);
+        }
+        return kids;
+    });
+}
+
+//==> Page 393 [15.4 Attributes]
