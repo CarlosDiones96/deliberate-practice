@@ -456,3 +456,144 @@ if(!document.documentElement.children){
 }
 
 //==> Page 393 [15.4 Attributes]
+
+var image = document.getElementById("myimage");
+var imgurl = image.src;
+image.id === "myimage";
+
+//
+var f = document.forms[0];
+f.action = "https://www.example.com/submit.php";
+f.method = "POST";
+
+//
+var image = document.images[0];
+var width = parseInt(image.getAttribute("WIDTH"));
+image.setAttribute("class", "thumbnail");
+
+//Assumes the ES5 Array.map is defined
+var sparklines = document.getElementsByClassName("sparkline");
+for(var i = 0; i < sparklines.length; i++){
+    var dataset = sparklines[i].dataset;
+    var ymin = parseFloat(dataset.ymin);
+    var ymax = parseFloat(dataset.ymax);
+    var data = sparklines[i].textContent.split(" ").map(parseFloat);
+    drawSparkLine(sparklines[i], ymin, ymax, data); // Not yet implemented
+}
+
+//Another version of the code above
+var sparklines = document.getElementsByClassName("sparkline");
+for(var i = 0; i < sparklines.length; i++){
+    var elt = sparklines[i];
+    var ymin = parseFloat(elt.getAttribute("data-ymin"));
+    var ymax = parseFloat(elt.getAttribute("data-ymax"));
+    var points = elt.getAttribute("data-points");
+    var data = elt.textContent.split(" ").map(parseFloat);
+    drawSparkline(elt, ymin, ymax, data); //Not yet implemented
+}
+
+//
+document.body.attributes[0];
+document.attributes.bgcolor;
+document.body.attributes["ONLOAD"];
+
+//
+var para = document.getElementsByTagName("p")[0];
+var text = para.textContent;
+para.textContent = "Hello World";
+
+
+//
+function textContent(element, value){
+    var content = element.textContent;
+    if(value === undefined){
+        if(content !== undefined) return content;
+        else return element.innerText;
+    }else{
+        if(content !== undefined) element.textContent = value;
+        else element.innerText = value;
+    }
+}
+
+//Finding all Text node descendants of an element
+function textContent(e){
+    var child, type, s = "";
+    for (child = e.firstChild; child != null; child=child.nextSibling){
+        type = child.nodeType;
+        if(type === 3 || type === 4){
+            s += child.nodeValue;
+        }else if(type === 1){
+            s += textContent(child);
+        }
+    }
+    return s;
+}
+
+//Recursively convert all text node descendants of n to uppercase
+function upcase(n){
+    if(n.nodeType == 3 || n.nodeType == 4){
+        n.data = n.data.toUpperCase();
+    }
+    else{
+        for(var i = 0; i < n.childNodes.length; i++){
+            upcase(n.childNodes[i]);
+        }
+    }
+}
+
+//Asynchronously load and execute a script from a specified URL
+function loadasync (url){
+    var head = document.getElementsByTagName("head")[0];
+    var s = document.createElement("script");
+    s.scr = url;
+    head.appendChild(s);
+}
+
+//creating nodes
+var newnode = document.createTextNode("text node content");
+
+//Insert the child node into parent, so that it becomes child node n
+function insertAt(parent, child, n){
+    if(n < 0 || n > parent.childNodes.length){
+        throw new Error("invalid index");
+    }else if(n == parent.childNodes.length){
+        parent.appendChild(child);
+    }else{
+        parent.insertBefore(child, parent.childNodes[n]);
+    }
+}
+
+//Sorting the rows of a table
+function sortrows(table, n, comparator){
+    var tbody = table.tBodies[0];
+    var rows = tbody.getElementsByTagName("tr");
+    rows = Array.prototype.slice.call(rows, 0);
+
+    rows.sort(function(row1, row2){
+        var cell1 = row1.getElementsByTagName("td")[n];
+        var cell2 = row2.getElementsByTagName("td")[n];
+        var val1 = cell1.textContent || cell1.innerText;
+        var val2 = cell2.textContent || cell2.innerText;
+
+        if(comparator){
+            return comparator(val1, val2);
+        }
+        if(val1 < val2) return -1;
+        else if(val1 > val2) return 1;
+        else return 0;
+    });
+
+    for(var i = 0; rows.length; i++) tbody.appendChild(rows[i]);
+}
+
+function makeSortable(table){
+    var headers = table.getElementsByTagName("th");
+    for(var i = 0; i < headers.length; i++){
+        (function(n){
+            headers[i].onclick = function() { sortrows(table, n);};
+        })(i);
+    }
+}
+
+// ==> Page 402 15.6.3 Removing and Replacing Nodes ===================================
+
