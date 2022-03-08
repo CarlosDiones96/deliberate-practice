@@ -295,3 +295,50 @@ namespace FunWithIfElse
     }
 }
 // ==> Page 127 Chapter 3
+SetDestination("Fifth Ave");
+string route;
+route = GetRoute();
+
+//
+class Navigator{
+    public void SetCurrentLocation(string locationName){
+
+    }
+    public void SetDestination(string destinationName){
+
+    }
+
+    public void ModifyRouteToAvoid(string streetName){
+
+    }
+
+    public int MultiplyTwoNumbers(int firstNumber, int secondNumber){
+        int result = firstNumber * secondNumber;
+        return result;
+    }
+
+
+
+}
+
+int myResult = MultiplyTwoNumbers(3, 6);
+
+//
+class Talker{
+    public static int BlaBlaBla(string thingToSay, int numberOfTimes){
+        string finalString = "";
+        for(int count = 1; count <= numberOfTimes; count++){
+            finalString = finalString + thingToSay + "\n";
+        }
+        MessageBox.Show(finalString);
+        return finalString.Length;
+    }
+}
+
+//
+private void button1_Click(object sender, EventArgs e){
+    int len = Talker.BlaBlaBla(textBox1.Text, (int)numericUpDown.Value);
+    MessageBox.Show("The message length is " + len);
+}
+
+// ==> Page 134 
