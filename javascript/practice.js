@@ -597,3 +597,105 @@ function makeSortable(table){
 
 // ==> Page 402 15.6.3 Removing and Replacing Nodes ===================================
 
+n.parentNode.removeChild(n);
+
+n.parentNode.replaceChild(document.createTextNode("[ REDACTED "), n);
+
+// Replace the node n with a  new <b> element and make n a child of that element
+function embolden(n){
+    if(typeof n == "string") n = document.getElementById(n);
+    var parent = n.parentNode;
+    var b = document.createElement("b");
+    parent.replaceChild(b, n);
+    b.appendChild(n);
+}
+
+// Implementing the outerHTML property using innerHTML
+(function(){
+    if(document.createElement("div").outerHTML) return;
+
+    function outerHTMLGetter(){
+        var container = document.createElement("div");
+        container.appendChild(this.cloneNode(true));
+        return container.innerHTML;
+    }
+
+    function outerHTMLSetter(value){
+        var container = document.createElement("div");
+        container.innerHTML = value;
+        while(container.firstChild){
+            this.parentNode.insertBefore(container.firstChild, this);
+        }
+        this.parentNode.removeChild(this);
+    }
+
+    if(Object.defineProperty){
+        Object.defineProperty(Element.prototype, "outerHTML", {
+            get: outerHTMLGetter,
+            set: outerHTMLSetter,
+            enumerable: false, 
+            configurable: true
+        });
+    }else{
+        Element.prototype.__defineGetter__("outerHTML", outerHTMLGetter);
+        Element.prototype.__defineSetter__("outerHTML", outerHTMLSetter);
+    }
+}());
+
+//Using DocumentFragments
+var frag = document.createDocumentFragment();
+
+// Reverse the order of the children of Node n
+function reverse(n){
+    var f = document.createDocumentFragment();
+    while(n.lastChild) f.appendChild(n.lastChild);
+    n.appendChild(f);
+}
+
+// Implementing insertAdjacentHTML() using innerHTML
+var Insert = (function(){
+    if(document.createElement("div").insertAdjacentHTML){
+        return {
+            before: function(e, h) {e.insertAdjacentHTML("beforebegin", h);},
+            after: function(e, h) {e.insertAdjacentHTML("afterend", h);},
+            atStart: function(e, h) {e.insertAdjacentHTML("afterbegin", h);},
+            atEnd: function(e, h) {e.insertAdjacentHTML("beforeend", h);}
+        };
+    }
+
+    function fragment(html){
+        var elt = document.createElement("div");
+        var frag = document.createDocumentFragment();
+        elt.innerHTML = html;
+        while(elt.firstChild){
+            frag.appendChild(elt.firstChild);
+        }
+        return frag;
+    }
+
+    var Insert = {
+        before: function(elt, html){
+            elt.parentNode.insertBefore(fragment(html), elt);
+        },
+        after: function(elt, html){
+            elt.parentNode.insertBefore(fragment(html), elt.nextSibling);
+        },
+        atStart: function(elt, html){
+            elt.insertBefore(fragment(html), elt.firstChild);
+        },
+        atEnd: function(elt, html){
+            elt.appendChild(fragment(html));
+        }
+    };
+
+    Element.prototype.insertAdjacent = function(pos, html){
+        switch(pos.toLowerCase()){
+            case "beforebegin": return Insert.before(this, html);
+            case "afterend": return Insert.after(this, html);
+            case "afterbegin": return Insert.atStart(this, html);
+            case "beforeend": return Insert.atEnd(this, html);
+        }
+    };
+    return Insert;
+}());
+
