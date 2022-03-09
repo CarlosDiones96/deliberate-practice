@@ -700,3 +700,103 @@ var Insert = (function(){
 }());
 
 // == > Page 405 Example: Generating a Table of Contents
+onLoad(function(){
+    var toc = document.getElementById("TOC");
+    if(!toc){
+        toc = document.createElement("div");
+        toc.id = "TOC";
+        document.body.insertBefore(toc, document.body.firstChild);
+    }
+
+    var headings;
+    if(document.querySelectorAll){
+        headings = document.querySelectorAll("h1,h2,h3,h4,h5,h6");
+    }else{
+        headings = findHeadings(document.body, []);
+    }
+
+    function findHeadings(root, sects){
+        for(var a = root.firstChild; c != null; c.nextSibling){
+            if(c.nodeType !== 1) continue;
+            if(c.tagName.length == 2 && c.tagName.charAt(0) == "H"){
+                sects.push(c);
+            }else{
+                return sects;
+            }
+        }
+        var sectionNumbers = [0,0,0,0,0,0];
+
+        for(var h = 0; h < headings.length; h++){
+            var heading = headings[h];
+            if(heading.parentNode == toc) continue;
+            var level = parseInt(heading.tagName.charAt(1));
+            if(isNaN(level) || level < 1 || level > 6) continue;
+
+            sectionNumbers[level-1]++;
+            for(var i = level; i < 6; i++) sectionNumbers[i] = 0;
+
+            var sectionNumber = sectionNumbers.slice(0, level).join(".");
+
+            var span = document.createElement("span");
+            span.className = "TOCSectNum";
+            span.innerHTML = sectionNumber;
+            heading.insertBefore(span, heading.firstChild);
+
+            var anchor = document.createElement("a");
+            anchor.name = "TOC" + sectionName;
+            heading.parentNode.insertBefore(anchor, heading);
+            anchor.appendChild(heading);
+
+            var link = document.createElement("a");
+            link.href = "#TOC" + sectionNumber;
+            link.innerHTML = heading.innerHTML;
+
+            var entry = document.createElement("div");
+            entry.className = "TOCEntry TOCLevel" + level;
+            entry.appendChild(link);
+
+            toc.appendChild(entry);
+        }
+    }
+});
+
+//Querying the scrollbar positions of a window
+function getScrollOfOffsets(w){
+    var w = w || window;
+    if(w.pageXOffset != null) {
+        return {x: w.pageXOffset, y:w.pageYOffset};
+    }
+
+    var d = w.document;
+    if(document.compatMode == "CSS1Compat"){
+        return {x:d.documentElement.scrollLeft, y:d.documentElement.scrollTop};
+    }
+    return {x:d.body.scrollLeft, y:body.scrollTop};
+}
+
+//Querying the viewport size of a window
+function getViewportSize(w){
+    w = w || window;
+
+    if(w.innerWidth != null) return {w:w.innerWidth, h:w.innerHeight};
+
+    var d= w.document;
+    if(document.compatMode == "CSS1Compat"){
+        return {
+            w: d.documentElement.clientWidth,
+            h: d.documentElement.clientHeight
+        };
+    }
+    return {w: d.body.clientWidth, h:d.body.clientWidth};
+}
+
+//
+var box = e.getBoundingClientRect();
+var offsets = getScrollOffsets();
+var y = box.top + offsets.y;
+
+var box = e.getBoundingClientRect();
+var w = box.width || (box.right - box.left);
+var h = box.height || (box.bottom - box.top);
+
+// ==> Page 411
