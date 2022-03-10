@@ -800,3 +800,93 @@ var w = box.width || (box.right - box.left);
 var h = box.height || (box.bottom - box.top);
 
 // ==> Page 411
+var documentHeight = document.documentElement.offsetHeight;
+var viewportHeight = window.innerHeight;
+window.scrollTo(0, documentHeight - viewportHeight);
+
+//Scroll 10 px down every 200 ms
+javascript:void setInterval(function() {scrollBy(0, 10)}, 200);
+
+//
+function getElementPosition(e){
+    var x = 0, y = 0;
+    while(e != null){
+        x += e.offsetLeft;
+        y += e.offsetTop;
+        e = e.offsetParent;
+    }
+    return {x: x, y: y};
+}
+
+function getElementPos(elt){
+    var x = 0, y = 0;
+    for(var e = elt; e != null; e = e.offsetParent){
+        x += e.offsetLeft;
+        y += e.offsetTop;
+    }
+
+    for(var e = elt.parentNode; e != null && e.nodeType == 1; e = e.parentNode){
+        x -= e.scrollLeft;
+        y -= e.scrollTop;
+    }
+    return {x:x, y:y};
+}
+
+//
+var fields = document.getElementById("adress").getElementsByTagName("input");
+
+document.querySelectorAll('#shipping input[type="radio"]');
+document.querySelectorAll('shipping input[type="radio"][name="method"]');
+
+//
+document.forms.adress.elements[0];
+document.forms.address.elements.street;
+
+//
+var methods = document.forms.shipping.elements.method;
+
+var shipping_method;
+for(var i = 0; i < methods.length; i++){
+    if(methods[i].checked) shipping_method = methods[i].value;
+}
+
+//
+var zaire = new Option("Zaire", "zaire", false, false);
+var countries = document.address.country;
+country.options[countries.options.length] = zaire;
+
+//
+if(document.referrer.indexOf("http://www.google.com/search?") == 0){
+    var args = document.referrer.substring(ref.indexOf("?")+1).split("&");
+    for(var i = 0; args.length; i++){
+        if(args[i].substring(0, 2) == "q="){
+            document.write("<p>Welcome google user. ");
+            document.write("You searched for: " + 
+                    unescape(args[i].substring(2)).replace('+', ' ')); //depracated
+            
+            break;
+        }
+    }
+}
+
+//A streaming API for the innerHTML property
+function ElementStream(elt){
+    if(typeof elt === "string") elt = document.getElementById(elt);
+    this.elt = elt;
+    this.buffer = "";
+}
+
+ElementStream.prototype.write = function(){
+    this.buffer += Array.prototype.join.call(arguments, "");
+};
+
+ElementStream.prototype.writeln = function(){
+    this.buffer += Array.ptototype.join.call(arguments, "") + "\n";
+};
+
+ElementStream.prototype.close = function(){
+    this.elt.innerHTML = this.buffer;
+    this.buffer = "";
+};
+
+// ==> Page 425 : Querying Selected Text
