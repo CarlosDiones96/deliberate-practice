@@ -1,10 +1,10 @@
 // ==> Page 425 : Querying Selected Text
 
 //
-function getSelectedText(){
-    if(window.getSelection){
+function getSelectedText() {
+    if (window.getSelection) {
         return window.getSelection().toString();
-    }else if(document.selection){
+    } else if (document.selection) {
         //IE
         return document.selection.createRange().text;
     }
@@ -12,9 +12,9 @@ function getSelectedText(){
 
 //
 var q;
-if (window.getSelection){
+if (window.getSelection) {
     q = window.getSelection().toString();
-}else if(document.selection){
+} else if (document.selection) {
     q = document.selection.createRange().text;
 }
 void window.open('https://en.wikipedia.org/wiki/' + q);
@@ -23,19 +23,19 @@ void window.open('https://en.wikipedia.org/wiki/' + q);
 elt.value.substring(elt.selectionStart, elt.selectionEnd);
 
 //
-onload(function(){
+onload(function () {
     var editor = document.getElementById('editor');
     editor.contentDocument.designMode = 'on';
 });
 
 //
-function bold(){
+function bold() {
     document.execCommand('bold', false, null); //deprecated
 }
 
-function link(){
+function link() {
     var url = prompt('Enter link destination');
-    if(url) document.execCommand('createLink', false, url); //deprecated
+    if (url) document.execCommand('createLink', false, url); //deprecated
 }
 
 //SCRIPTING INLINE STYLES
@@ -48,8 +48,8 @@ e.style.backgroundColor = '#ffaa00';
 e.style.left = '300px';
 e.style.left = (x0 + left_margin + left_border + left_padding) + 'px';
 e.style.margin = topMargin + 'px' + rightMargin + 'px' +
-                bottomMargin + 'px' + leftMargin + 'px';
-            
+    bottomMargin + 'px' + leftMargin + 'px';
+
 e.style.marginTop = topMargin + 'px';
 e.style.marginRight = marginRight + 'px';
 e.style.marginBottom = bottomMargin + 'px';
@@ -63,12 +63,12 @@ s = e.getAttribute('style');
 s = e.style.cssText;
 
 //CSS Animations
-function shake(e, oncomplete, distance, time){
-    if(typeof e === 'string') {
+function shake(e, oncomplete, distance, time) {
+    if (typeof e === 'string') {
         e = document.getElementById(e);
     }
-    if(!time) time = 500;
-    if(!distance) distance = 5;
+    if (!time) time = 500;
+    if (!distance) distance = 5;
 
     var originalStyle = e.style.cssText;
     e.style.position = 'relative';
@@ -76,46 +76,46 @@ function shake(e, oncomplete, distance, time){
 
     animate();
 
-    function animate(){
+    function animate() {
         var now = (new Date()).getTime();
         var elapsed = now - start;
-        var fraction = elapsed/time;
+        var fraction = elapsed / time;
 
-        if(fraction < 1){
-            var x = distance * Math.sin(fraction*4*Math.PI);
+        if (fraction < 1) {
+            var x = distance * Math.sin(fraction * 4 * Math.PI);
             e.style.left = x + 'px';
 
-            setTimeout(animate, Math.min(25, time-elapsed));
-        }else{
+            setTimeout(animate, Math.min(25, time - elapsed));
+        } else {
             e.style.cssText = originalStyle;
-            if(oncomplete) onclomplete(e);
+            if (oncomplete) onclomplete(e);
         }
     }
 }
 
-function fadeOut(e, oncomplete, time){
-    if(typeof e === 'string'){
+function fadeOut(e, oncomplete, time) {
+    if (typeof e === 'string') {
         e = document.getElementById(e);
     }
-    if(!time) time = 500;
+    if (!time) time = 500;
 
     var ease = Math.sqrt;
     var start = (new Date()).getTime();
 
     animate();
 
-    function animate(){
-        var elapsed = (new Date()).getTime()-start;
-        var fraction = elapsed/time;
-        if(fractrion < 1){
+    function animate() {
+        var elapsed = (new Date()).getTime() - start;
+        var fraction = elapsed / time;
+        if (fractrion < 1) {
             var opacity = 1 - ease(fraction);
             e.style.opacity = String(opacity);
-            setTimeout(animate, 
-                Math.min(25, time-elapsed)
-                );
-        }else{
+            setTimeout(animate,
+                Math.min(25, time - elapsed)
+            );
+        } else {
             e.style.opacity = '0';
-            if(oncomplete) oncomplete(e);
+            if (oncomplete) oncomplete(e);
         }
     }
 }
@@ -125,102 +125,102 @@ var title = document.getElementById("section1title");
 var titlestyles = window.getComputedStyle(element, nulll);
 
 //Querying computed styles and setting inline styles
-function scale(e, factor){
+function scale(e, factor) {
     var size = parseInt(window.getComputedStyle(e, "").fontSize);
-    e.style.fontSize = factor*size + "px";
+    e.style.fontSize = factor * size + "px";
 }
 
-function scaleColor(e, factor){
+function scaleColor(e, factor) {
     var color = window.getComputedStyle(e, "").backgroundColor;
     var components = color.match(/[\d\.]+/g);
-    for(var i =0; i < 3; i++){
+    for (var i = 0; i < 3; i++) {
         var x = Number(components[i]) * factor;
         x = Math.round(Math.min(Math.max(x, 0), 255));
         components[i] = String(x);
     }
-    if(components.length == 3){
+    if (components.length == 3) {
         e.style.backgroundColor = "rgb(" + components.join() + ")";
-    }else{
+    } else {
         e.style.backgroundColor = "rgba(" + components.join() + ")";
     }
 }
 
 //
-function grabAttention(e){
+function grabAttention(e) {
     e.className = "attention";
 }
 
-function releaseAttention(e){
+function releaseAttention(e) {
     e.className = "";
 }
 //
 
 // treat className as set of CSS classes
-function classList(e){
-    if(e.classList){
+function classList(e) {
+    if (e.classList) {
         return e.classList;
-    }else{
+    } else {
         return new CSSClassList(e);
     }
 }
 
-function CSSClassList(e){
+function CSSClassList(e) {
     this.e = e;
 }
 
-CSSClassList.prototype.contains = function(c){
-    if(c.length === 0 || c.indexOf(" ") != -1){
+CSSClassList.prototype.contains = function (c) {
+    if (c.length === 0 || c.indexOf(" ") != -1) {
         throw new Error("Invalid class name: '" + c + "'");
     }
     var classes = this.e.className;
-    if(!classes) return false;
-    if(classes === c) return true;
+    if (!classes) return false;
+    if (classes === c) return true;
 
-    return classes.search("\\b"+ c + "\\b") != -1;
+    return classes.search("\\b" + c + "\\b") != -1;
 };
 
-CSSClassList.prototype.add = function(c){
-    if(this.contains(c)) return;
+CSSClassList.prototype.add = function (c) {
+    if (this.contains(c)) return;
     var classes = this.e.className;
-    if(classes && classes[classes.length-1] != " "){
+    if (classes && classes[classes.length - 1] != " ") {
         c = " " + c;
     }
     this.e.className += c;
 };
 
-CSSClassList.prototype.remove = function(c){
-    if(c.length === 0 || c.indexOf(" ") != -1){
+CSSClassList.prototype.remove = function (c) {
+    if (c.length === 0 || c.indexOf(" ") != -1) {
         throw new Error("Invalid class name : '" + c + "'");
     }
     var pattern = new RegExp("\\b" + "\\s*", "g");
     this.e.className = this.e.className.replace(pattern, "");
 };
 
-CSSClassList.prototype.toggle = function(c){
-    if(this.contains(c)){
+CSSClassList.prototype.toggle = function (c) {
+    if (this.contains(c)) {
         this.remove(c)
         return false;
-    }else{
+    } else {
         this.add(c);
         return true;
     }
 };
 
-CSSClassList.ptototype.toString = function(){
+CSSClassList.ptototype.toString = function () {
     return this.e.className;
 };
 
-CSSClassList.prototype.toArray = function(){
+CSSClassList.prototype.toArray = function () {
     return this.e.className.match(/\b\w+\b/g) || [];
 }
 
 //--------------------
-function disableStylesheets(ss){
-    if(typeof ss === "number"){
+function disableStylesheets(ss) {
+    if (typeof ss === "number") {
         document.styleSheets[ss].disabled = true;
-    }else{
+    } else {
         var sheets = document.querySelectorAll(ss);
-        for(var i = 0; i < sheets.length; i++){
+        for (var i = 0; i < sheets.length; i++) {
             sheets[i].disabled = true;
         }
     }
@@ -236,25 +236,25 @@ document.styleSheets[0].insertRule("H1 { text-weight: bold; }", 0);
 var ss = document.styleSheets[0];
 var rules = ss.cssRules ? ss.cssRules : ss.rules;
 
-for(var i = 0; i < rules; i++){
+for (var i = 0; i < rules; i++) {
     var rule = rules[i];
-    if(!rule.selectorText) continue;
+    if (!rule.selectorText) continue;
 
     var selector = rule.selectorText;
     var ruleText = rule.style.cssText;
 
-    if(selector == "h1"){
-        if(ss.insertRule){
-            ss.insertRule("h2 { "+ ruleText+"}", rules.length);
-        }else if(ss.addRule){
+    if (selector == "h1") {
+        if (ss.insertRule) {
+            ss.insertRule("h2 { " + ruleText + "}", rules.length);
+        } else if (ss.addRule) {
             ss.addRule("h2", ruleText, rules.length);
         }
     }
 
-    if(rule.style.textDecoration){
-        if(ss.deleteRule){
+    if (rule.style.textDecoration) {
+        if (ss.deleteRule) {
             ss.deleteRule(i);
-        }else if(ss.removeRule){
+        } else if (ss.removeRule) {
             ss.removeRule(i);
         }
         i--;
@@ -262,30 +262,30 @@ for(var i = 0; i < rules; i++){
 }
 
 //creating a new stylesheet
-function addStyles(styles){
+function addStyles(styles) {
     var styleElt, styleSheet;
-    if(document.createStyleSheet){
+    if (document.createStyleSheet) {
         styleSheet = document.createStyleSheet();
-    }else{
+    } else {
         var head = document.getElementsByTagName("head")[0];
         styleElt = document.createElement("style");
         head.appendChild(styleElt);
-        styleSheet = document.styleSheets[document.styleSheets.length-1];
+        styleSheet = document.styleSheets[document.styleSheets.length - 1];
     }
 
-    if(typeof styles === "string"){
-        if(styleElt){
+    if (typeof styles === "string") {
+        if (styleElt) {
             styleElt.innerHTNL = styles;
-        }else{
+        } else {
             styleSheet.cssText = styles;
         }
-    }else{
+    } else {
         var i = 0;
-        for(selector in styles){
-            if(styleSheet.insertRule){
+        for (selector in styles) {
+            if (styleSheet.insertRule) {
                 var rule = selector + "{" + styles[selector] + "}";
                 styleSheet.insertRules(rule, i++);
-            }else{
+            } else {
                 styleSheet.addRule(selector, styles[selector], i++);
             }
         }
@@ -293,3 +293,89 @@ function addStyles(styles){
 }
 
 // NEXT >>> Page 463 [Handling Events]
+window.onload = function () {
+    var elt = document.getElementById("shipping_address");
+    elt.onsubmit = function () { return ValidityState(this); }
+}
+
+//
+var b = document.getElementById("myBtn");
+b.onclick = function() {
+    alert("Thanks");
+};
+b.addEventListener("click", function() {
+    alert("Thanks again");
+});
+
+//
+document.removeEventListener("mousemove", handleMouseMove, true);
+document.removeEventListener("mouseup", handleMouseUp, true);
+
+//
+var b = document.getElementById("mybutton");
+var handler = function() { alert("Thanks");};
+if(b.addEventListener){
+    b.addEventListener("click", handler, false);
+}else if(b.attachEvent){
+    b.attachEvent("onclick", handler);
+}
+
+//
+function handler(event){
+    event = event || window.event;
+    // todo
+}
+
+//
+function addEvent(target, type, handler){
+    if(target.addEventListener){
+        target.addEventListener(type, handler, false);
+    }else{
+        target.attachEvent("on" + type, 
+                            function(event){
+                                return handler.call(target, event);
+                            });
+    }
+}
+
+//
+function cancelHandler(event){
+    var event = event || window.event;
+
+    if(event.preventDefault) event.preventDefault();
+    if(event.returnValue) event.returnValue = false;
+    return false;
+}
+
+//Invoking functions when the document is ready
+var whenReady = (function(){
+    var funcs = [];
+    var ready = false;
+
+    function handler(e){
+        if(ready) return;
+        if(e.type === "readystatechange" && document.readyState !== "complete") return;
+        
+        for(var i = 0; i < funcs.length; i++){
+            funcs[i].call(document);
+        }
+        ready = true;
+        funcs = null;
+    }
+
+    if(document.addEventListener){
+        document.addEventListener("DOMContentLoaded", handler, false);
+        document.addEventListener("readystatechange", handler, false);
+        window.addEventListener("load", handler, false);
+    }else if(document.attachEvent){
+        document.attachEvent("onreadystatechange", handler);
+        window.attachEvent("onload", handler);
+    }
+
+    return function whenReady(f){
+        if(ready) f.call(document);
+        else funcs.push(f);
+    }
+}());
+
+// NEXT >>> Page 495 [Mouse Events]
