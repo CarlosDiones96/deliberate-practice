@@ -378,4 +378,27 @@ var whenReady = (function(){
     }
 }());
 
+//
+function dataAtualFormatada(){
+    var data = new Date(),
+        dia = data.getDate().toString(),
+        diaF = (dia.length == 1) ? '0' + dia : dia,
+        mes = (data.getMonth()+1).toString(),
+        mesF = (mes.length == 1) ? '0'+mes : mes,
+        anoF = data.getFullYear();
+    
+    return diaF + '/' + mesF + '/' + anoF;
+}
+
+$('#Data').value(dataAtualFormatada);
+
+//ES8
+function dataAtualFormatada2(){
+    var data = new Date(),
+        dia = data.getDate().toString().padStart(2, '0'),
+        mes = (data.getMonth()+1).toString().padStart(2, '0'),
+        ano = data.getFullYear();
+    return dia + '/' + mes + '/' + ano;
+}
+
 // NEXT >>> Page 495 [Mouse Events]
