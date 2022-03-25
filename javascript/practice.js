@@ -378,6 +378,7 @@ var whenReady = (function(){
     }
 }());
 
+<<<<<<< HEAD
 // NEXT >>> Page 495 [Mouse Events]
 whenReady(function(){
     var clock = document.getElementById("clock");
@@ -498,3 +499,29 @@ whenReady(function(){
     }
 });
 // NEXT >> Page 499 [TEXT EVENTS]
+=======
+//
+function dataAtualFormatada(){
+    var data = new Date(),
+        dia = data.getDate().toString(),
+        diaF = (dia.length == 1) ? '0' + dia : dia,
+        mes = (data.getMonth()+1).toString(),
+        mesF = (mes.length == 1) ? '0'+mes : mes,
+        anoF = data.getFullYear();
+    
+    return diaF + '/' + mesF + '/' + anoF;
+}
+
+$('#Data').value(dataAtualFormatada);
+
+//ES8
+function dataAtualFormatada2(){
+    var data = new Date(),
+        dia = data.getDate().toString().padStart(2, '0'),
+        mes = (data.getMonth()+1).toString().padStart(2, '0'),
+        ano = data.getFullYear();
+    return dia + '/' + mes + '/' + ano;
+}
+
+// NEXT >>> Page 495 [Mouse Events]
+>>>>>>> b5fcbf2d4f14b3add50c650ec717b817f06a89f9
