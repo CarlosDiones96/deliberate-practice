@@ -498,8 +498,7 @@ whenReady(function(){
 
     }
 });
-// NEXT >> Page 499 [TEXT EVENTS]
-=======
+
 //
 function dataAtualFormatada(){
     var data = new Date(),
@@ -524,4 +523,4 @@ function dataAtualFormatada2(){
 }
 
 // NEXT >>> Page 495 [Mouse Events]
->>>>>>> b5fcbf2d4f14b3add50c650ec717b817f06a89f9
+// NEXT >> Page 499 [TEXT EVENTS]
