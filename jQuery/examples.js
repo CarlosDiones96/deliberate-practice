@@ -201,3 +201,64 @@ $("#myDiv a:first").attr("href", function(idx, href){
 
 // Using jQuery Core >> The jQuery Object
 // https://learn.jquery.com/using-jquery-core/jquery-object/ 
+
+var target = document.getElementById("target");
+target.innerHTML = "<td>Hello</td>";
+
+var target = document.getElementById("target");
+$(target).html("<td>Hello</td>");
+
+//
+var target = document.getElementById("target");
+var newElement = document.createElement("div");
+target.parentNode.insertBefore(newElement, target.nextSibling);
+
+//
+var target = document.getElementById("target");
+var newElement = document.createElement("div");
+$(target).after(newElement);
+
+//
+var headings = $("h1");
+
+var headings = $("h1");
+alert(headings.length);
+
+//
+var headings = $("h1");
+var firstHeading = headings.eq(0);
+
+//
+var firstHeadingElem = $("h1").get(0);
+//
+var firstHeadingElem = $("h1")[0];
+
+//
+var logo1 = $("#logo");
+var logo2 = $("#logo");
+
+//
+alert($("#logo" === $("#logo"))); // false
+
+//
+var logo1 = $("#logo");
+var logoElem = logo1.get(0);
+
+var logo2 = $("#logo");
+var logo2Elem = logo2.get(0);
+alert(logoElem === logo2Elem); // true
+
+//
+var $logo1 = $("#logo");
+var logo1 = $logo1.get(0);
+
+var $logo2 = $("#logo");
+var logo2 = $logo2.get(0);
+
+alert(logo1 === logo2); // true
+
+//
+var allParagraphs = $("p");
+
+// Using jQuery Core >> Traversing
+// https://learn.jquery.com/using-jquery-core/traversing/ 
