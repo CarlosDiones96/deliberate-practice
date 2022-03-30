@@ -334,5 +334,30 @@ class Game extends React.Component{
 }
 
 // React Tutorial >> Lifting State UP, Again
-https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again
+//https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again
 
+class Board extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            squares: Array(9).fill(null),
+        };
+    }
+    renderSquare(i){
+        return <Square value={this.state.squares[i]} />;
+    }
+}
+
+class Square extends React.Component{
+    render(){
+        return (
+            <button className="square"
+            onClick={() => this.props.onClick()}>
+                {this.props.value}
+            </button>
+        );
+    }
+}
+
+// React tutorial >> Why immutability is important
+// https://reactjs.org/tutorial/tutorial.html#why-immutability-is-important
