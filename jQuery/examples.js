@@ -262,3 +262,27 @@ var allParagraphs = $("p");
 
 // Using jQuery Core >> Traversing
 // https://learn.jquery.com/using-jquery-core/traversing/ 
+$("span.subchild").parent();
+$("span.subchild").parents("div.parent");
+$("span.subchild").parents();
+$("span.subchild").parentsUntil("div.grandparent");
+$("span.subchild").closest("div");
+$("div.child").closest("div");
+
+$("div.grandparent").children("div");
+$("div.grandparent").find("div");
+
+$("div.parent").next();
+$("div.parent").prev();
+$("div.parent").nextAll();
+$("div.parent").nextAll().first();
+$("div.parent").nextAll().last();
+$("div.surrogateParent2").prevAll();
+$("div.surrogateParent2").prevAll().first();
+$("div.surrogateParent2").prevAll().last();
+$("div.parent").siblings();
+$("div.surrogateParent1").siblings();
+
+// NEXT >> Using jQuery Core >> CSs, styling and dimensions
+// https://learn.jquery.com/using-jquery-core/css-styling-dimensions/
+
