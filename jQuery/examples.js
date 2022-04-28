@@ -102,5 +102,34 @@ $.type(3);
 $.type("text");
 $.type(/test/);
 
+//------------------------------------------------------
+$('nav a').on('click', function(e){
+    e.preventDefault();
+    var url = this.href;
+
+    $('nav a.current').removeClass('current');
+    $(this).addClass('current');
+
+    $('#container').remove();
+    $('#content').load(url + '#content').hide().fadeIn('slow');
+});
+
+//
+$('#selector a').on('click', function(e){
+    e.preventDefault();
+    var queryString = 'vote=' + event.target.id;
+    $.get('votes.php', queryString, function(data){
+        $('#selector').html(data);
+    });
+});
+
+$('#register').on('submit', function(e){
+    e.preventDefault();
+    var details = $('#register').serialize();
+    $.post('register.php', details, function(data){
+        $('#register').html(data);
+    });
+});
+
 // Iterating over jQuery and non-jQuery Objects
 // https://learn.jquery.com/using-jquery-core/iterating/
