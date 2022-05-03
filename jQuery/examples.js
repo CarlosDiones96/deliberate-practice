@@ -204,3 +204,75 @@ $(function(){
 
 // Iterating over jQuery and non-jQuery Objects
 // https://learn.jquery.com/using-jquery-core/iterating/
+
+var sum = 0;
+var arr = [1 ,2 , 3, 4, 5];
+
+for(var i = 0, l = arr.length; i < l; i++){
+    sum += arr[i];
+}
+
+console.log(sum); // 15
+
+$each(arr, function(index, value){
+    sum += value;
+});
+
+//
+var sum = 0;
+var obj = {
+    foo: 1,
+    bar: 2
+};
+
+for(var item in obj){
+    sum += obj[item];
+}
+console.log(sum);
+
+$.each(obj, function(key, value){
+    sum += value;
+});
+console.log(sum);
+
+//
+$('li').each(function(index, element){
+    console.log($(this).text());
+});
+
+//
+$('li').each(function(index, listItem){
+    this === listItem;
+    $.ajax({
+        success: function(data){
+            this !== listItem;
+        }
+    });
+});
+
+//
+$('li').each(function(index, el){
+    $(el).addClass('newClass');
+});
+
+$('li').addClass('newClass');
+
+//
+$('input').each(function(i, el){
+    var elem = $(el);
+    elem.val(elem.val() + '%');
+});
+
+//
+var newArr = [];
+$('li').each(function(){
+    newArray.push(this.id);
+});
+
+$('li').map(function(index, element){
+    return this.id;
+}).get();
+
+
+// Using jQuery’s .index() Function
+// https://learn.jquery.com/using-jquery-core/understanding-index/
